@@ -1,11 +1,16 @@
 //! This crate contains a macro to generate a lazy
-//! [`Regex`](https://docs.rs/regex/latest/regex/struct.Regex.html) and perform regex validation.
+//! [`Regex`](https://docs.rs/regex/latest/regex/struct.Regex.html) and
+//! perform regex validation.
 //! The code fails to compile if the regex is invalid.
 //!
 //!
 //! ## Usage
 //!
-//! This Rust crate helps prevent common pitfalls when working with regular expressions by ensuring patterns are valid at compile time and avoiding redundant compilations. It leverages the standard library `OnceCell` to compile regexes only once and uses a procedural macro for compile-time validation, improving both safety and performance.
+//! This Rust crate helps prevent common pitfalls when working with regular
+//! expressions by ensuring patterns are valid at compile time and avoiding
+//! redundant compilations. It leverages the standard library `OnceLock` to
+//! compile regexes only once and uses a procedural macro for compile-time
+//! validation, improving both safety and performance.
 //! The only dependency in the crate is `regex`
 //!
 //! Example:
@@ -18,8 +23,8 @@
 //! ```
 //!
 //! > Note: clippy already provides a lint that validates regexes.
-//! > The usage of this crate is more about avoiding the overhead of creating the
-//! > regex multiple with the added benefit of compile time validation.
+//! > The usage of this crate is more about avoiding the overhead of creating
+//! > the regex multiple with the added benefit of compile time validation.
 //!
 
 #![warn(clippy::pedantic)]
@@ -30,7 +35,24 @@ pub type Regex = regex::Regex;
 #[doc(hidden)]
 pub type Lock = std::sync::OnceLock<Regex>;
 
-/// Generate a static regex.
+/// Generates a lazy `regex::Regex` and perform regex validation.
+/// The code fails to compile if the regex is invalid.
+///
+/// # Errors
+/// Compilation fails if the regex is invalid.
+///
+/// # Examples
+/// ```rust
+/// let re = lure::regex!("[0-9a-f]+");
+/// assert!(re.is_match("Test1234ccc#"));
+///
+/// ```
+///
+/// This example fails to compile because the regex is invalid.
+/// ```compile_fail
+/// let re = lure::regex!(r"/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/");
+/// ```
+///
 #[macro_export]
 macro_rules! regex (
     // in Rust 1.45 we can now invoke proc macros in expression position

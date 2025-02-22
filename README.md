@@ -4,12 +4,7 @@
 [![Docs.rs Latest](https://img.shields.io/badge/docs.rs-latest-blue.svg)](https://docs.rs/lure)
 [![cicd](https://github.com/luander/lure/actions/workflows/ci.yaml/badge.svg)](https://github.com/luander/lure/actions/workflows/ci.yaml)
 
-Safe & Efficient Regex in Rust – Compile-Time Validation & Single Compilation
-
-This crate contains a macro to generate a lazy
-[`Regex`](https://docs.rs/regex/latest/regex/struct.Regex.html) and perform regex validation.
-The code fails to compile if the regex is invalid.
-
+Shift left with Lure, a Rust crate that provides a macro for creating lazy [Regex](https://docs.rs/regex/latest/regex/struct.Regex.html) instances with compile-time validation, ensuring invalid patterns fail to compile.
 
 ## Usage
 
@@ -20,9 +15,55 @@ Example:
 ```rust
 use lure::regex;
 
-// Password regex
-let re = regex!("/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/");
-assert!(re.is_match("Test1234ccc#"));
+let re = regex!("[0-9a-f]+");
+assert!(re.is_match("deadbeef1234"));
+```
+
+## Invalid Regex
+
+Compilation fails if the regex is invalid. For example, the following code will not compile:
+
+```rust
+fn main() {
+    let re = lure::regex!(r"/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/");
+    assert!(re.is_match("randomChars123!"));
+}
+```
+
+Trying to compile the code above will result in the following error:
+
+```rust
+error: Invalid regex: regex parse error:
+           r"/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/"
+                 ^^^
+       error: look-around, including look-ahead and look-behind, is not supported
+ --> examples/simple/src/main.rs:4:14
+  |
+4 |     let re = regex!(r"/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/");
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+```
+
+Other examples are wrong syntax, missing closing parenthesis, and invalid escape sequences:
+
+```rust
+fn main() {
+    let re = regex!(r"[0-9a-f+");
+    assert!(re.is_match("1234deadbeef"));
+}
+
+```
+
+Which prints out the error:
+
+```rust
+error: Invalid regex: regex parse error:
+           r"[0-9a-f+"
+             ^
+       error: unclosed character class
+ --> examples/simple/src/main.rs:4:14
+  |
+4 |     let re = regex!(r"[0-9a-f+");
+  |              ^^^^^^^^^^^^^^^^^^^
 ```
 
 ## License

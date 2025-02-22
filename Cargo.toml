@@ -1,15 +1,16 @@
 [workspace]
 resolver = "3"
-members = ["crates/*"]
+members = ["crates/*", "examples/*"]
 
 [workspace.package]
 authors = ["Luander Ribeiro <iam@luander.net>"]
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
-description = "Safe & Efficient Regex in Rust – Compile-Time Validation & Single Compilation"
+description = "Shift left with Lure, a Rust crate that provides a macro for creating lazy Regex instances with compile-time validation, ensuring invalid patterns fail to compile."
 readme = "README.md"
 repository = "https://github.com/luander/lure"
 license = "Apache-2.0"
+license_file = "LICENSE"
 keywords = ["regex", "macro"]
 exclude = [
     "examples/",
