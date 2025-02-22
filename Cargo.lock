@@ -13,7 +13,7 @@ dependencies = [
 
 [[package]]
 name = "lure"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "lure-macros",
  "regex",
@@ -21,7 +21,7 @@ dependencies = [
 
 [[package]]
 name = "lure-macros"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "regex",
 ]
@@ -60,10 +60,3 @@ name = "regex-syntax"
 version = "0.8.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b15c43186be67a4fd63bee50d0303afffcef381492ebe2c5d87f324e1b8815c"
-
-[[package]]
-name = "simple"
-version = "0.1.0"
-dependencies = [
- "lure",
-]
