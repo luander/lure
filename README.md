@@ -2,7 +2,7 @@
 
 [![Crates.io Version](https://img.shields.io/crates/v/lure.svg)](https://crates.io/crates/lure)
 [![Docs.rs Latest](https://img.shields.io/badge/docs.rs-latest-blue.svg)](https://docs.rs/lure)
-[![Build Status](https://img.shields.io/github/workflow/status/luander/lure/build/trunk)](https://github.com/luander/lure/actions?query=workflow%3Abuild)
+[![cicd](https://github.com/luander/lure/actions/workflows/ci.yaml/badge.svg)](https://github.com/luander/lure/actions/workflows/ci.yaml)
 
 Safe & Efficient Regex in Rust – Compile-Time Validation & Single Compilation
 
