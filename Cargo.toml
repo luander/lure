@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members = ["crates/*", "examples/simple"]
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+
+[workspace.dependencies]
+regex = "1.11"
