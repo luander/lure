@@ -1,7 +1,12 @@
 [package]
 name = "lure-macros"
-version = "0.1.0"
 edition = "2024"
+version = "0.1.0"
+authors.workspace = true
+description.workspace = true
+repository.workspace = true
+license.workspace = true
+keywords.workspace = true
 
 [lints]
 workspace = true

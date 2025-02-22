@@ -1,6 +1,17 @@
 [workspace]
-resolver = "2"
+resolver = "3"
 members = ["crates/*", "examples/simple"]
+
+[workspace.package]
+authors = ["Luander Ribeiro <iam@luander.net>"]
+version = "0.1.0"
+edition = "2024"
+description = "Safe & Efficient Regex in Rust – Compile-Time Validation & Single Compilation"
+readme = "README.md"
+repository = "https://github.com/luander/lure"
+license = "Apache-2.0"
+keywords = ["regex", "macro"]
+
 
 [workspace.lints.clippy]
 unwrap_used = "deny"
